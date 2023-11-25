@@ -1,4 +1,4 @@
-import csv, time, keyboard
+import csv, time, keyboard, math
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -42,7 +42,16 @@ def toInt(text):
     return int(num / div)
 
 def getYear(text):
-    return toInt(text.split(',')[1])
+    num = 0
+    for i in text:
+        if i.isdigit():
+            num = num*10 + int(i)
+        else:
+            if int(math.log10(num+1)) + 1 >= 4:
+                break
+            else:
+                num = 0
+    return num
 
 columns = ['Name', 'Release Year', 'Certificate', 'Duration', 'Poster', 'Trailer', 'Genre', 'Rating', 'Rating Count', 'Country', 'Director', 'Writer', 'Stars', 'Storyline', 'Cost', 'Income']
 
